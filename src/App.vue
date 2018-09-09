@@ -4,14 +4,14 @@
             <md-button class="md-icon-button" v-if="toolbar.menu" @click="drawer.isOpen = !drawer.isOpen">
                 <md-icon>menu</md-icon>
             </md-button>
-            <span class="md-title">Exchange</span>
+            <span class="md-title">{{toolbar.title}}</span>
         </md-app-toolbar>
         <md-app-drawer :md-active.sync="drawer.isOpen">
             <md-toolbar class="md-transparent" md-elevation="0">Navigation</md-toolbar>
-            <md-list>
+            <md-list @click="drawer.isOpen = !drawer.isOpen">
                 <md-list-item>
-                    <md-icon>move_to_inbox</md-icon>
-                    <router-link tag="span" class="md-list-item-text" to="/wallets/list">Wallets</router-link>
+                    <md-icon>speaker_notes</md-icon>
+                    <router-link tag="span" class="md-list-item-text pointer" to="/wallets/list">Wallets</router-link>
                 </md-list-item>
 
                 <md-list-item>
@@ -25,13 +25,17 @@
                 </md-list-item>
 
                 <md-list-item>
-                    <md-icon>error</md-icon>
-                    <span class="md-list-item-text">Spam</span>
+                    <md-icon>exit_to_app</md-icon>
+                    <router-link tag="span" class="md-list-item-text pointer" to="/auth">Logout</router-link>
                 </md-list-item>
             </md-list>
         </md-app-drawer>
         <md-app-content>
-            <router-view :remote.sync="remote" :appReady="ready"></router-view>
+            <router-view :remote.sync="remote" :toolbar.sync="toolbar" @error="onError"></router-view>
+            <md-snackbar :md-position="snackBar.position" :md-duration="snackBar.duration" :md-active.sync="snackBar.isOpen" md-persistent>
+                <span>{{snackBar.message}}</span>
+                <md-button class="md-primary" @click="snackBar.isOpen = false">OK</md-button>
+            </md-snackbar>
         </md-app-content>
     </md-app>
 </template>
@@ -39,7 +43,24 @@
     const storage = window.localStorage;
 
     export default {
-        methods: {},
+        methods: {
+
+            onError: function (message) {
+                this.snackBar.message = message;
+                this.snackBar.isOpen = true;
+            },
+
+            loadProfile: function () {
+                let me = this;
+                me.$api.usersProfile({btype: 'REAL'}).then((response) => {
+                    me.remote.profile = response;
+                }).catch(() => {
+                    return me.$router.push({
+                        path: '/auth'
+                    });
+                });
+            }
+        },
         components: {},
 
         watch: {
@@ -51,11 +72,16 @@
 
         data () {
             return {
-                ready: null,
-
+                snackBar : {
+                    position : 'center',
+                    duration : 5000,
+                    message : '',
+                    isOpen : false
+                },
                 toolbar: {
                     visible: true,
-                    menu: true
+                    menu: true,
+                    title : 'Home'
                 },
 
                 drawer: {
@@ -74,33 +100,28 @@
 
         created () {
             const me = this;
-            me.ready = new Promise((resolve, reject) => {
-                me.$api.settingsList().then((response) => {
-                    me.remote.settings = response;
-                }).then(() => {
-                    if (!me.remote.sessionId) {
-                        reject();
-                        return me.$router.push({
-                            path: 'auth'
-                        });
-                    }
-                    me.$api.setSessionId(me.remote.sessionId);
-                    me.$api.usersProfile({btype: 'REAL'}).then((response) => {
-                        me.remote.profile = response;
-                        resolve();
-                    }).catch(() => {
-                        reject();
-                        return me.$router.push({
-                            path: '/auth'
-                        });
-                    });
+
+            if (!me.remote.sessionId) {
+                return me.$router.push({
+                    path: 'auth'
                 });
+            }
+
+            me.$api.setSessionId(me.remote.sessionId);
+            me.$api.settingsList().then(function (response) {
+                me.remote.settings = response;
+            }).then(function () {
+                me.loadProfile();
             });
         }
     }
 </script>
 
 <style lang="scss">
+
+    .pointer {
+        cursor: pointer;
+    }
 
     .md-app {
         min-height: 100vh;

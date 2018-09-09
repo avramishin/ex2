@@ -28,11 +28,11 @@
     const numeral = require('numeral');
 
     export default {
-        props: ['remote', 'appReady'],
+        props: ['remote', 'toolbar'],
 
         methods: {
             getCurrencyClass(currency) {
-                if(currency == 'BCH'){
+                if (currency == 'BCH') {
                     return 'cf-btc-alt';
                 } else {
                     return 'cf-' + currency.toLowerCase();
@@ -49,17 +49,14 @@
             return {}
         },
 
-        created()
+        mounted()
         {
             const me = this;
-            me.appReady.then(function () {
-                me.$api.exchangeWalletsList({btype: 'REAL'})
-                    .then(function (response) {
-                        me.remote.wallets = response.wallets;
-
-                    }).catch(function (error) {
-
-                });
+            this.toolbar.title = 'Wallets List';
+            me.$api.exchangeWalletsList({btype: 'REAL'}).then(function (response) {
+                me.remote.wallets = response.wallets;
+            }).catch(function (error) {
+                me.$emit('error', error);
             });
         }
     }
