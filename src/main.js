@@ -13,9 +13,9 @@ import Api from './plugins/Api.js';
 import Auth from './components/Auth/Auth.vue'
 import AuthReset from './components/Auth/Reset.vue'
 import Wallets from './components/Wallets/Wallets.vue'
-
+import WalletHistory from './components/Wallets/History.vue'
 import Exchange from './components/Exchange/Exchange.vue'
-import History from './components/History/History.vue'
+
 
 Vue.use(VueMaterial);
 Vue.use(VueRouter);
@@ -38,6 +38,14 @@ const router = new VueRouter({
         {
             path: '/wallets/list',
             component: Wallets
+        },
+        {
+            path: '/wallets/history/:currency',
+            component: WalletHistory
+        },
+        {
+            path: '/exchange/:currency',
+            component: Exchange
         }
     ]
 });

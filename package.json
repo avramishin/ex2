@@ -10,6 +10,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "@chenfengyuan/vue-number-input": "^0.5.2",
     "cryptofont": "^0.1.1",
     "numeral": "^2.0.6",
     "utils": "^0.3.1",

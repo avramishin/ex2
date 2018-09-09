@@ -13,17 +13,6 @@
                     <md-icon>speaker_notes</md-icon>
                     <router-link tag="span" class="md-list-item-text pointer" to="/wallets/list">Wallets</router-link>
                 </md-list-item>
-
-                <md-list-item>
-                    <md-icon>send</md-icon>
-                    <span class="md-list-item-text">Sent Mail</span>
-                </md-list-item>
-
-                <md-list-item>
-                    <md-icon>delete</md-icon>
-                    <span class="md-list-item-text">Trash</span>
-                </md-list-item>
-
                 <md-list-item>
                     <md-icon>exit_to_app</md-icon>
                     <router-link tag="span" class="md-list-item-text pointer" to="/auth">Logout</router-link>

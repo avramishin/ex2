@@ -1,7 +1,7 @@
 <template>
     <div>
         <md-list class="md-double-line">
-            <md-list-item v-for="wallet in remote.wallets" :key="wallet.id">
+            <md-list-item v-for="wallet in remote.wallets" :key="wallet.id" @click="openWalletHistory(wallet.currency)">
                 <md-icon class="cf" :class="getCurrencyClass(wallet.currency)"></md-icon>
 
                 <div class="md-list-item-text">
@@ -31,6 +31,11 @@
         props: ['remote', 'toolbar'],
 
         methods: {
+            openWalletHistory(currency) {
+                this.$router.push({
+                    path: '/wallets/history/' + currency
+                });
+            },
             getCurrencyClass(currency) {
                 if (currency == 'BCH') {
                     return 'cf-btc-alt';
@@ -49,7 +54,7 @@
             return {}
         },
 
-        mounted()
+        created()
         {
             const me = this;
             this.toolbar.title = 'Wallets List';
