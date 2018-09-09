@@ -11,7 +11,7 @@
             <md-list>
                 <md-list-item>
                     <md-icon>move_to_inbox</md-icon>
-                    <span class="md-list-item-text">History</span>
+                    <router-link tag="span" class="md-list-item-text" to="/wallets/list">Wallets</router-link>
                 </md-list-item>
 
                 <md-list-item>

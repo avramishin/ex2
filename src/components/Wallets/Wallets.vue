@@ -8,6 +8,10 @@
                     <span>{{numeral(wallet.balance,'0.00000')}} {{wallet.currency}}</span>
                     <span>${{ numeral(wallet.usd_equivalent,'0.00') }}</span>
                 </div>
+
+                <md-button class="md-icon-button md-list-action">
+                    <md-icon>payment</md-icon>
+                </md-button>
             </md-list-item>
         </md-list>
     </div>
