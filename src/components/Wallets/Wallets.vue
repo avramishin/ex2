@@ -1,12 +1,17 @@
 <template>
-    <div class="md-layout">
-        <div class="md-layout-item md-size-50">
-            <i class="cf cf-btc" style="font-size: 32px"></i>
-        </div>
-        <div class="md-layout-item text-right md-size-50">
-            <span style="font-size: 32px; line-height: 32px">0.002</span>
-        </div>
+    <div>
+        <md-list class="md-double-line">
+            <md-list-item v-for="wallet in remote.wallets" :key="wallet.id">
+                <md-icon class="cf" :class="getCurrencyClass(wallet.currency)"></md-icon>
+
+                <div class="md-list-item-text">
+                    <span>{{numeral(wallet.balance,'0.00000')}} {{wallet.currency}}</span>
+                    <span>${{ numeral(wallet.usd_equivalent,'0.00') }}</span>
+                </div>
+            </md-list-item>
+        </md-list>
     </div>
+
 </template>
 
 <style>
@@ -16,8 +21,24 @@
 </style>
 
 <script>
+    const numeral = require('numeral');
+
     export default {
-        props: ['remote'],
+        props: ['remote', 'appReady'],
+
+        methods: {
+            getCurrencyClass(currency) {
+                if(currency == 'BCH'){
+                    return 'cf-btc-alt';
+                } else {
+                    return 'cf-' + currency.toLowerCase();
+                }
+            },
+
+            numeral(value, format){
+                return numeral(value).format(format);
+            }
+        },
 
         data ()
         {
@@ -26,7 +47,16 @@
 
         created()
         {
+            const me = this;
+            me.appReady.then(function () {
+                me.$api.exchangeWalletsList({btype: 'REAL'})
+                    .then(function (response) {
+                        me.remote.wallets = response.wallets;
 
+                    }).catch(function (error) {
+
+                });
+            });
         }
     }
 </script>

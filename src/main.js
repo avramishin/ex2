@@ -22,7 +22,7 @@ Vue.use(VueRouter);
 Vue.use(VueResource);
 
 Vue.use(Api, {
-    baseurl: "http://babylonia.tradehummingbird.com"
+    baseurl: "https://api.tradehummingbird.com"
 });
 
 const router = new VueRouter({

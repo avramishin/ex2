@@ -1,3 +1,9 @@
+const utils = {
+    object: {
+        defaults: require('object.defaults')
+    }
+}
+
 export default {
     install (Vue, options) {
 
@@ -18,18 +24,13 @@ export default {
             },
 
             usersProfile (params = {}) {
-                params.session_id = me.sessionId;
+                utils.object.defaults(params, {session_id: me.sessionId});
                 return me._wrap(Vue.http.get(`${me.baseurl}/users/profile`, {params: params}))
             },
 
-            walletsWithdrawalsSave (params) {
-                params.session_id = me.sessionId;
-                return me._wrap(Vue.http.get(`${me.baseurl}/wallets/withdrawals/save`, {params: params}))
-            },
-
-            walletsDepositsSave(params) {
-                params.session_id = me.sessionId;
-                return me._wrap(Vue.http.get(`${me.baseurl}/wallets/deposits/save`, {params: params}))
+            exchangeWalletsList(params = {}) {
+                utils.object.defaults(params, {session_id: me.sessionId});
+                return me._wrap(Vue.http.get(`${me.baseurl}/exchange/wallets/list`, {params: params}))
             },
 
             // Wrap http call in promise and return data section, watch for errors

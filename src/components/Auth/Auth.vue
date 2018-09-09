@@ -36,9 +36,9 @@
 
                 me.error = '';
                 me.$api.usersLogin({
-                    username: me.username,
+                    email: me.username,
                     password: me.password
-                }).then((response) => {
+                }).then(function(response) {
                     me.remote.sessionId = response.session_id;
 
                     me.remote.userId = response.user_id;
@@ -47,7 +47,7 @@
                         path : '/wallets/list'
                     });
 
-                }).catch((error) => {
+                }).catch(function (error) {
                     me.error = error;
                 });
             }

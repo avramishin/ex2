@@ -4,7 +4,7 @@
             <md-button class="md-icon-button" v-if="toolbar.menu" @click="drawer.isOpen = !drawer.isOpen">
                 <md-icon>menu</md-icon>
             </md-button>
-            <span class="md-title">title</span>
+            <span class="md-title">Exchange</span>
         </md-app-toolbar>
         <md-app-drawer :md-active.sync="drawer.isOpen">
             <md-toolbar class="md-transparent" md-elevation="0">Navigation</md-toolbar>
@@ -31,7 +31,7 @@
             </md-list>
         </md-app-drawer>
         <md-app-content>
-            <router-view :remote.sync="remote"></router-view>
+            <router-view :remote.sync="remote" :appReady="ready"></router-view>
         </md-app-content>
     </md-app>
 </template>
@@ -42,8 +42,8 @@
         methods: {},
         components: {},
 
-        watch : {
-            'remote.sessionId' : function (val) {
+        watch: {
+            'remote.sessionId': function (val) {
                 this.$api.setSessionId(val);
                 storage.setItem('sessionId', val);
             }
@@ -51,6 +51,8 @@
 
         data () {
             return {
+                ready: null,
+
                 toolbar: {
                     visible: true,
                     menu: true
@@ -72,23 +74,25 @@
 
         created () {
             const me = this;
-
-            me.$api.settingsList().then((response) => {
-                me.remote.settings = response;
-            }).then(() => {
-
-                if (!me.remote.sessionId) {
-                    return me.$router.push({
-                        path: 'auth'
-                    });
-                }
-
-                me.$api.setSessionId(me.remote.sessionId);
-                me.$api.usersProfile().then((response) => {
-                    me.remote.profile = response;
-                }).catch(() => {
-                    return me.$router.push({
-                        path: '/auth'
+            me.ready = new Promise((resolve, reject) => {
+                me.$api.settingsList().then((response) => {
+                    me.remote.settings = response;
+                }).then(() => {
+                    if (!me.remote.sessionId) {
+                        reject();
+                        return me.$router.push({
+                            path: 'auth'
+                        });
+                    }
+                    me.$api.setSessionId(me.remote.sessionId);
+                    me.$api.usersProfile({btype: 'REAL'}).then((response) => {
+                        me.remote.profile = response;
+                        resolve();
+                    }).catch(() => {
+                        reject();
+                        return me.$router.push({
+                            path: '/auth'
+                        });
                     });
                 });
             });
