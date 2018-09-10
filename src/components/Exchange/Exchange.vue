@@ -1,93 +1,105 @@
 <template>
     <div>
-        <div class="md-layout">
-            <div class="md-layout-item">
-                <number-input v-model="srcAmount"
-                              :value="0.001"
-                              :step="0.001" inline center controls
-                              size="small">
-                </number-input>
-            </div>
 
-            <div class="md-layout-item md-size-10 md-xsmall-size-30">
+
+        <div class="md-layout space-around">
+            <div class="md-layout-item md-size-40">
                 <md-field>
+
                     <md-select v-model="srcCurrency">
                         <md-option value="USD">USD</md-option>
                         <md-option value="BTC">BTC</md-option>
                         <md-option value="ETH">ETH</md-option>
                     </md-select>
                 </md-field>
+            </div> 
 
-            </div>
-        </div>
-
-        <div class="d-flex justify-content-end">
-            <div>
-                <md-icon class="swap md-size-2x">swap_vert</md-icon>
-            </div>
-
-        </div>
-
-        <div class="md-layout">
-            <div class="md-layout-item">
-
-                <md-field>
-                    <md-input v-model="dstAmount"></md-input>
-
-                </md-field>
-
+            <div class="md-layout-item md-size-20">
+                <md-button class="md-icon-button">
+                    <md-icon>compare_arrows</md-icon>
+                </md-button>    
             </div>
 
-            <div class="md-layout-item md-size-10 md-xsmall-size-30">
+
+            <div class="md-layout-item md-size-40">
                 <md-field>
 
                     <md-select v-model="dstCurrency">
-                        <md-option value="USD">USD</md-option>
-                        <md-option value="BTC">BTC</md-option>
-                        <md-option value="ETH">ETH</md-option>
-                    </md-select>
-                </md-field>
+                      <md-option value="USD">USD</md-option>
+                      <md-option value="BTC">BTC</md-option>
+                      <md-option value="ETH">ETH</md-option>
+                  </md-select>
+              </md-field>
+          </div> 
+      </div> 
 
-            </div>
-        </div>
+      <div class="md-layout space-between">
+          <div class="md-layout-item md-size-45">
+           <div>You pay</div>
+           <number-input :value="0" center controls size="small"></number-input>
+       </div>
 
-        <md-field>
-            <label>Order Type</label>
-            <md-select v-model="orderType">
-                <md-option value="MARKET">Market</md-option>
-                <md-option value="LIMIT">Limit</md-option>
-            </md-select>
-        </md-field>
+       <div class="md-layout-item md-size-45">
+           <div>You receive</div>
+           <number-input :value="0" center controls size="small"></number-input>
+       </div>
+   </div>
 
+   <div class="md-layout space-between order-type-container" >
+      <div class="md-layout-item md-size-45 ">
 
-        <div class="md-layout">
-
-            <div class="md-layout-item">
-                <div v-if="orderType=='MARKET'">
-                    <md-field>
-                        <label>Market Rate</label>
-                        <md-input v-model="marketRate" readonly></md-input>
-                    </md-field>
-                </div>
-                <div v-if="orderType=='LIMIT'">
-                    <md-field>
-                        <label>Specify Limit Rate</label>
-                        <md-input v-model="limitRate"></md-input>
-                    </md-field>
-                </div>
-            </div>
-        </div>
-        <div>
-            <md-button class="button">OK</md-button>
-        </div>
+        <md-switch v-model="orderType" value="LIMIT">Limit Order</md-switch>
     </div>
+
+    <div class="md-layout-item md-size-45">
+       <div>Price</div>
+       <number-input :value="0" center controls size="small"></number-input>
+       <div class="wlo">
+        <a href="URL">What is Limit Order?</a>
+    </div>
+</div>
+
+
+</div>
+<div>
+    <md-button class="md-raised md-primary w-100 exchange-button">exchange</md-button>
+</div>
+
+</div>
+
 </template>
 
 <style scoped>
 
-    .swap {
-        color: #448aff !important;
-    }
+.wlo {
+    font-size: 10px;
+    padding-top: 5px;
+}
+
+.exchange-button {
+
+    margin: 20px 0 0 0;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.order-type-container {
+    margin-top: 20px; 
+}
+
+.space-around {
+    justify-content: space-around;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.swap {
+    color: #448aff !important;
+}
 
 
 </style>

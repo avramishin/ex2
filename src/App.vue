@@ -50,7 +50,9 @@
                 });
             }
         },
-        components: {},
+        components: {
+
+        },
 
         watch: {
             'remote.sessionId': function (val) {
@@ -108,65 +110,65 @@
 
 <style lang="scss">
 
-    .pointer {
-        cursor: pointer;
-    }
+.pointer {
+    cursor: pointer;
+}
 
-    .md-app {
-        min-height: 100vh;
-    }
+.md-app {
+    min-height: 100vh;
+}
 
-    .gc {
-        color: #8E8F8A;
-    }
+.gc {
+    color: #8E8F8A;
+}
 
-    .d-flex {
-        display: flex;
-    }
+.d-flex {
+    display: flex;
+}
 
-    .justify-content-end {
-        justify-content: flex-end;
-    }
+.justify-content-end {
+    justify-content: flex-end;
+}
 
-    .justify-content-center {
-        justify-content: center;
-    }
+.justify-content-center {
+    justify-content: center;
+}
 
-    .inform {
-        font-family: 'Tahoma, Helvetica, Arial, sans-serif';
-        color: #448aff;
-        margin-top: 30px;
-        margin-bottom: 15px;
-    }
+.inform {
+    font-family: 'Tahoma, Helvetica, Arial, sans-serif';
+    color: #448aff;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
 
-    .card {
-        margin-bottom: 20px;
-        color: white;
-        border: 1px solid black;
-        border-radius: 10px;
-        background-image: url("./assets/card-back.png");
-        background-size: contain;
-    }
+.card {
+    margin-bottom: 20px;
+    color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-image: url("./assets/card-back.png");
+    background-size: contain;
+}
 
-    .wallet-number {
-        font-size: 30px;
-        margin: 10px;
-    }
+.wallet-number {
+    font-size: 30px;
+    margin: 10px;
+}
 
-    .button {
-        text-transform: none;
-        font-size: 15px;
-        margin: 0;
-        margin-top: 15px;
-        color: white !important;
-        background-color: #448aff;
-        width: 100%;
-    }
+.button {
+    text-transform: none;
+    font-size: 15px;
+    margin: 0;
+    margin-top: 15px;
+    color: white !important;
+    background-color: #448aff;
+    width: 100%;
+}
 
-    .md-title {
-        text-align: center;
-        color: #423e3e;
-        font-size: 15px !important;
-    }
+.md-title {
+    text-align: center;
+    color: #423e3e;
+    font-size: 15px !important;
+}
 
 </style>

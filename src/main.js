@@ -16,6 +16,10 @@ import Wallets from './components/Wallets/Wallets.vue'
 import WalletHistory from './components/Wallets/History.vue'
 import Exchange from './components/Exchange/Exchange.vue'
 
+import Deposit from './components/Wallets/Deposit.vue'
+import Withdraw from './components/Wallets/Withdraw.vue'
+
+
 
 Vue.use(VueMaterial);
 Vue.use(VueRouter);
@@ -46,6 +50,14 @@ const router = new VueRouter({
         {
             path: '/exchange/:currency',
             component: Exchange
+        },
+        {
+            path: '/wallets/deposit/:currency',
+            component: Deposit
+        },
+        {
+            path: '/wallets/withdraw/:currency',
+            component: Withdraw
         }
     ]
 });
