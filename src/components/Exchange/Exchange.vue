@@ -35,35 +35,42 @@
 
       <div class="md-layout space-between">
           <div class="md-layout-item md-size-45">
-           <div>You pay</div>
-           <number-input :value="0" center controls size="small"></number-input>
-       </div>
+             <div>You pay</div>
+             <number-input :value="0" center controls size="small"></number-input>
+         </div>
 
-       <div class="md-layout-item md-size-45">
-           <div>You receive</div>
-           <number-input :value="0" center controls size="small"></number-input>
-       </div>
-   </div>
+         <div class="md-layout-item md-size-45">
+             <div>You receive</div>
+             <number-input :value="0" center controls size="small"></number-input>
+         </div>
+     </div>
 
-   <div class="md-layout space-between order-type-container" >
+     <div class="md-layout space-between order-type-container" >
       <div class="md-layout-item md-size-45 ">
 
         <md-switch v-model="orderType" value="LIMIT">Limit Order</md-switch>
     </div>
 
     <div class="md-layout-item md-size-45">
-       <div>Price</div>
-       <number-input :value="0" center controls size="small"></number-input>
-       <div class="wlo">
-        <a href="URL">What is Limit Order?</a>
+     <div>Price</div>
+     <number-input :value="0" center controls size="small"></number-input>
+     <div class="wlo">
+        <a href="javascript:void(0);" @click="whatis = true">What is Limit Order?</a>
     </div>
 </div>
-
 
 </div>
 <div>
     <md-button class="md-raised md-primary w-100 exchange-button">exchange</md-button>
 </div>
+
+
+ <md-dialog-alert
+      :md-active.sync="whatis"
+      md-title="Post created!"
+      md-content="Your post <strong>Material Design is awesome</strong> has been created." />
+
+
 
 </div>
 
@@ -124,6 +131,7 @@
 
         data () {
             return {
+                whatis: false,
                 limitRate: 2092.00,
                 marketRate: 1092.00,
                 orderType: "MARKET",

@@ -12,15 +12,42 @@
                 <span class="md-error" v-if="error">{{error}}</span>
             </md-field>
 
+            <md-card-actions class="no-padding">
+                <md-button class="w-100-button" @click="login">Login</md-button>
+            </md-card-actions>
+
+        <div class="space-between">
+            <div>
+                <router-link to="/auth/reset">
+                    Забыли пароль?
+                </router-link>
+            </div>
+            <div>
+                <router-link to="/auth/registration">
+                    Регистрация
+                </router-link>
+            </div>
+        </div>
+
         </md-card-content>
 
-        <md-card-actions>
-            <md-button class="button" @click="login">Login</md-button>
-        </md-card-actions>
+
+
+
     </div>
 </template>
 
 <style scoped>
+
+.no-padding {
+    padding: 0;
+}
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0 0 0; 
+}
 
 </style>
 

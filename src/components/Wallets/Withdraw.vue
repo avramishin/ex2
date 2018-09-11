@@ -16,8 +16,8 @@
 			<label>Комментарии</label>
 			<md-input v-model="comment"></md-input>
 		</md-field>
-		<div style="text-align: center;">
-			<md-button class="md-raised md-primary">Подать заявку</md-button>
+		<div class="text-align">
+			<md-button class="md-raised md-primary w-100-button">Подать заявку</md-button>
 		</div>
 	</div>
 </template>
@@ -40,6 +40,9 @@
 </script>
 <style>
 
+.text-align {
+	text-align: right;
+}
 
 
 </style>

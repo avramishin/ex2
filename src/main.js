@@ -12,6 +12,9 @@ import Api from './plugins/Api.js';
 
 import Auth from './components/Auth/Auth.vue'
 import AuthReset from './components/Auth/Reset.vue'
+import AuthChangePassword from './components/Auth/ChangePassword.vue'
+import AuthRegistration from './components/Auth/Registration.vue'
+
 import Wallets from './components/Wallets/Wallets.vue'
 import WalletHistory from './components/Wallets/History.vue'
 import Exchange from './components/Exchange/Exchange.vue'
@@ -31,34 +34,44 @@ Vue.use(Api, {
 
 const router = new VueRouter({
     routes: [
-        {
-            path: '/auth',
-            component: Auth
-        },
-        {
-            path: '/auth/reset',
-            component: AuthReset
-        },
-        {
-            path: '/wallets/list',
-            component: Wallets
-        },
-        {
-            path: '/wallets/history/:currency',
-            component: WalletHistory
-        },
-        {
-            path: '/exchange/:currency',
-            component: Exchange
-        },
-        {
-            path: '/wallets/deposit/:currency',
-            component: Deposit
-        },
-        {
-            path: '/wallets/withdraw/:currency',
-            component: Withdraw
-        }
+    {
+        path: '/auth',
+        component: Auth
+    },
+    {
+        path: '/auth/reset',
+        component: AuthReset
+    },
+    {
+        path: '/auth/change/password',
+        component: AuthChangePassword
+    },
+
+    {
+        path: '/auth/registration',
+        component: AuthRegistration
+    },
+
+    {
+        path: '/wallets/list',
+        component: Wallets
+    },
+    {
+        path: '/wallets/history/:currency',
+        component: WalletHistory
+    },
+    {
+        path: '/exchange/:currency',
+        component: Exchange
+    },
+    {
+        path: '/wallets/deposit/:currency',
+        component: Deposit
+    },
+    {
+        path: '/wallets/withdraw/:currency',
+        component: Withdraw
+    }
     ]
 });
 
