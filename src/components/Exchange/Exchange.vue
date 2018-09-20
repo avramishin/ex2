@@ -35,26 +35,26 @@
 
       <div class="md-layout space-between">
           <div class="md-layout-item md-size-45">
-             <div>You pay</div>
-             <number-input :value="0" center controls size="small"></number-input>
-         </div>
+           <div>You pay</div>
+           <number-input v-model="srcAmount" :min="srcMinAmount" :max="srcMaxAmount" center controls size="small"></number-input>
+       </div>
 
-         <div class="md-layout-item md-size-45">
-             <div>You receive</div>
-             <number-input :value="0" center controls size="small"></number-input>
-         </div>
-     </div>
+       <div class="md-layout-item md-size-45">
+           <div>You receive</div>
+           <number-input v-model="dstAmount" :min="dstMinAmount" :max="dstMaxAmount" center controls size="small"></number-input>
+       </div>
+   </div>
 
-     <div class="md-layout space-between order-type-container" >
+   <div class="md-layout space-between order-type-container" >
       <div class="md-layout-item md-size-45 ">
 
-        <md-switch v-model="orderType" value="LIMIT">Limit Order</md-switch>
+        <md-switch v-model="orderType">Limit Order</md-switch>
     </div>
 
     <div class="md-layout-item md-size-45">
-     <div>Price</div>
-     <number-input :value="0" center controls size="small"></number-input>
-     <div class="wlo">
+       <div>Price</div>
+       <number-input v-model="rate" center controls size="small"></number-input>
+       <div class="wlo">
         <a href="javascript:void(0);" @click="whatis = true">What is Limit Order?</a>
     </div>
 </div>
@@ -65,10 +65,10 @@
 </div>
 
 
- <md-dialog-alert
-      :md-active.sync="whatis"
-      md-title="Post created!"
-      md-content="Your post <strong>Material Design is awesome</strong> has been created." />
+<md-dialog-alert
+:md-active.sync="whatis"
+md-title="Post created!"
+md-content="Your post <strong>Material Design is awesome</strong> has been created." />
 
 
 
@@ -119,6 +119,33 @@
         components: {
             'number-input': VueNumberInput
         },
+
+
+        watch: {
+            orderType: function(newValue, oldValue) {
+
+                if(newValue == true) {
+                    this.rate = this.limitRate;
+                } else {
+                    this.rate = this.marketRate;
+                }
+                
+            },
+
+            srcAmount: function(newValue){
+                this.calcDstAmount();
+            },
+
+            dstAmount: function(newValue){
+                this.srcAmount = this.dstAmount / this.workingRate;
+            },
+
+            rate: function(newValue){
+                this.calcDstAmount();
+            }
+        },
+
+
         methods: {
             setSrcMinAmount: function () {
                 this.srcAmount = this.srcMinAmount;
@@ -126,29 +153,49 @@
 
             setSrcMaxAmount: function () {
                 this.srcAmount = this.srcMaxAmount;
+            },
+
+            calcDstAmount: function () {
+                this.dstAmount = this.srcAmount * this.workingRate;
+            }
+        },
+
+        
+        computed: {
+            workingRate : function () {
+                if(this.direction == 'direct') {
+                    return this.rate;
+                } else {
+                    return 1 / this.rate;
+                }
             }
         },
 
         data () {
             return {
+                direction : 'reverse',
+
                 whatis: false,
-                limitRate: 2092.00,
-                marketRate: 1092.00,
-                orderType: "MARKET",
+                rate: 0,
+                limitRate: 2.00,
+                marketRate: 5.00,
+                marketRate: 5.00,
+                orderType: false,
                 menuVisible: false,
                 srcMinAmount: 0.1,
-                srcMaxAmount: 100.18,
+                srcMaxAmount: 1000,
                 srcCurrency: 'USD',
-                srcAmount: 100,
+                srcAmount: 10,
                 dstMinAmount: 0.1,
-                dstMaxAmount: 100.18,
+                dstMaxAmount: 1000,
                 dstCurrency: 'ETH',
-                dstAmount: 100
+                dstAmount: 10
 
             }
         },
 
         created(){
+            this.rate = this.marketRate;
             this.toolbar.title = `Exchange ${this.srcCurrency}`;
         }
     }
