@@ -2,7 +2,7 @@
     <div>
         <div>
             <div class="card">
-                <div class="balance">0,19 {{currency}}</div>
+                <div class="balance">0,30 {{currency}}</div>
                 <div class="button3">
                     <div>
                         <md-button 
@@ -37,7 +37,7 @@
 }
 
 .positive {
-    color: green;
+    color: yellow;
 }
 
 .balance {
@@ -126,7 +126,7 @@
                     amount: 100.25,
                     currency: 'WMZ',
                     datetime: '2018.09.04 13:45:45',
-                    text: 'покупка в магазине зара'
+                    text: 'покупк111а в магазине зара'
                 },
                 {
                     amount: -85.46,

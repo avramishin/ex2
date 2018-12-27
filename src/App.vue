@@ -61,6 +61,7 @@
         watch: {
             'remote.sessionId': function (val) {
                 this.$api.setSessionId(val);
+                
                 storage.setItem('sessionId', val);
             }
         },
