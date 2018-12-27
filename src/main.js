@@ -25,25 +25,52 @@ Vue.use(VueRouter);
 Vue.use(VueResource);
 
 Vue.use(Api, {
-    baseurl: "https://api.tradehummingbird.com"
+  baseurl: "https://api.tradehummingbird.com"
 });
 
 const router = new VueRouter({
-    routes: [
-        {path: '/auth', component: Auth},
-        {path: '/auth/reset', component: AuthReset},
-        {path: '/auth/change/password', component: AuthChangePassword},
-        {path: '/auth/registration', component: AuthRegistration},
-        {path: '/wallets/list', component: Wallets},
-        {path: '/wallets/history/:currency', component: WalletHistory},
-        {path: '/exchange/:currency', component: Exchange},
-        {path: '/wallets/deposit/:currency', component: Deposit},
-        {path: '/wallets/withdraw/:currency', component: Withdraw}
-    ]
+  routes: [{
+      path: '/auth',
+      component: Auth
+    },
+
+    {
+      path: '/auth/reset',
+      component: AuthReset
+    },
+    {
+      path: '/auth/change/password',
+      component: AuthChangePassword
+    },
+    {
+      path: '/auth/registration',
+      component: AuthRegistration
+    },
+    {
+      path: '/wallets/list',
+      component: Wallets
+    },
+    {
+      path: '/wallets/history/:currency',
+      component: WalletHistory
+    },
+    {
+      path: '/exchange/:currency',
+      component: Exchange
+    },
+    {
+      path: '/wallets/deposit/:currency',
+      component: Deposit
+    },
+    {
+      path: '/wallets/withdraw/:currency',
+      component: Withdraw
+    }
+  ]
 });
 
 window.VueApp = new Vue({
-    el: '#app',
-    router: router,
-    render: h => h(App)
+  el: '#app',
+  router: router,
+  render: h => h(App)
 });
